@@ -28,7 +28,7 @@ public class MaintenanceRestController {
         return new ResponseEntity<List<Maintenance>>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value="abschlussprojekt/admin/{id}", method=RequestMethod.GET)   
+    @RequestMapping(value="abschlussprojekt/maintenance/{id}", method=RequestMethod.GET)   
     public ResponseEntity<Maintenance> getEntity(@PathVariable("id") long id) {
 
         Optional<Maintenance> result = this.repository.findById(id);

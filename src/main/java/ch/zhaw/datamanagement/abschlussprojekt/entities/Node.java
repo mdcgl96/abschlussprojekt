@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -26,8 +25,6 @@ public abstract class Node {
     @OneToMany
     private List<Maintenance> services;
 
-    @ManyToOne
-    private Network company;
 
 
     public Node(long id, String status, List<Maintenance> services) {
@@ -62,14 +59,6 @@ public abstract class Node {
     public void setServices(List<Maintenance> services) {
         this.services = services;
     }
-
-    public Network getCompany() {
-        return company;
-    }
-
-    public void setCompany(Network company) {
-        this.company = company;
-    }
-    
+ 
     
 }

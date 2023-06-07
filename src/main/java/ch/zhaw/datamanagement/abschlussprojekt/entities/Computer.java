@@ -3,8 +3,10 @@ package ch.zhaw.datamanagement.abschlussprojekt.entities;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
+@PrimaryKeyJoinColumn(name = "id")
 public class Computer extends Node {
 
     private String marke;

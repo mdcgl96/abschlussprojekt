@@ -6,36 +6,38 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CompositeIterator;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.qos.logback.core.pattern.parser.Node;
 import ch.zhaw.datamanagement.abschlussprojekt.entities.Computer;
-import ch.zhaw.datamanagement.abschlussprojekt.entities.Network;
 import ch.zhaw.datamanagement.abschlussprojekt.repositories.ComputerRepository;
-import ch.zhaw.datamanagement.abschlussprojekt.repositories.NodeRepository;
+
+
+
 
 @RestController
-@RequestMapping("/computers")
 public class ComputerRestController{
 
     @Autowired
-    private ComputerRepository computerRepository;
+    ComputerRepository repository;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Computer> getComputerById(@PathVariable Long id) {
-        Optional<Node> node = computerRepository.findById(id);
-        Optional<Computer> computer = node.map(n -> (Computer) n);
 
-        if (computer.isPresent()) {
-            return ResponseEntity.ok(computer.get());
-        } else {
-            return ResponseEntity.notFound().build();
+    @RequestMapping(value="abschlussprojekt/computer", method=RequestMethod.GET)
+    public ResponseEntity<List<Computer>> getComputers()   {
+        List<Computer> result = this.repository.findAll();
+        return new ResponseEntity<List<Computer>>(result, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="abschlussprojekt/computer/{id}", method=RequestMethod.GET)   
+    public ResponseEntity<Computer> getEntity(@PathVariable("id") long id) {
+
+        Optional<Computer> result = this.repository.findById(id);
+        if(result.isEmpty())    {
+            return new ResponseEntity<Computer>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<Computer>(result.get(), HttpStatus.OK);
     }
     
 }
