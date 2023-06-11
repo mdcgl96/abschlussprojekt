@@ -2,17 +2,27 @@ package ch.zhaw.datamanagement.abschlussprojekt.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "id")
 public class Network extends Node{
 
     private String companyName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "network")
+    @JsonManagedReference
     private List<Node> node;
 
     public Network(long id, String status, List<Maintenance> services, String companyName, List<Node> node) {
@@ -21,25 +31,5 @@ public class Network extends Node{
         this.node = node;
     }
 
-    public Network() {
-        super();
-    }
-
-    public String getCompanyName() {
-        return this.companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public List<Node> getNode() {
-        return node;
-    }
-
-    public void setNode(List<Node> node) {
-        this.node = node;
-    }
-    
 
 }

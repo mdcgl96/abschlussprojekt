@@ -22,7 +22,7 @@ public class AdminRestController {
 
     @RequestMapping(value="abschlussprojekt/admin", method=RequestMethod.GET)
     public ResponseEntity<List<Admin>> getAdmins()   {
-        List<Admin> result = this.repository.findAll();
+        List<Admin> result = this.repository.findAdmins();
         return new ResponseEntity<List<Admin>>(result, HttpStatus.OK);
     }
 

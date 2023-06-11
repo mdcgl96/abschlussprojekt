@@ -36,5 +36,7 @@ public class NetworkRestController {
         }
         return new ResponseEntity<Network>(result.get(), HttpStatus.OK);
     }
+
+    
     
 }

@@ -2,6 +2,10 @@ package ch.zhaw.datamanagement.abschlussprojekt.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +19,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "id")
 public class Admin {
 
     @Id
@@ -23,7 +30,8 @@ public class Admin {
 
     private String Name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "admin")
+    @JsonManagedReference
     private List<Maintenance> cases;
     
 }

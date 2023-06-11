@@ -23,7 +23,7 @@ public class MaintenanceRestController {
     MaintenanceRepository repository;
 
     @RequestMapping(value="abschlussprojekt/maintenance", method=RequestMethod.GET)
-    public ResponseEntity<List<Maintenance>> getAdmins()   {
+    public ResponseEntity<List<Maintenance>> getMaintenances()   {
         List<Maintenance> result = this.repository.findAll();
         return new ResponseEntity<List<Maintenance>>(result, HttpStatus.OK);
     }

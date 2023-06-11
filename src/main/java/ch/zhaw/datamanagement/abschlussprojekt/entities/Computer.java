@@ -4,32 +4,24 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Computer extends Node {
 
-    private String marke;
+    private String macAdress;
 
-    public Computer(long id, String status, List<Maintenance> services, String marke) {
+    public Computer(long id, String status, List<Maintenance> services, String macAdress) {
         super(id, status, services);
-        this.marke = marke;
+        this.macAdress = macAdress;
     }
 
-    public Computer(String marke) {
-        this.marke = marke;
-    }
-
-    public Computer() {
-    }
-
-    public String getMarke() {
-        return this.marke;
-    }
-
-    public void setMarke(String marke) {
-        this.marke = marke;
-    }
 
     
 }
