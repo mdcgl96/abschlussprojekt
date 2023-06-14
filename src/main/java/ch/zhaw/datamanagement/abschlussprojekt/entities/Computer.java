@@ -4,11 +4,13 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter

@@ -8,11 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,12 +25,12 @@ public class Network extends Node{
 
     @OneToMany(mappedBy = "network")
     @JsonManagedReference
-    private List<Node> node;
+    private List<Node> nodes;
 
-    public Network(long id, String status, List<Maintenance> services, String companyName, List<Node> node) {
+    public Network(long id, String status, List<Maintenance> services, String companyName, List<Node> nodes) {
         super(id, status, services);
         this.companyName = companyName;
-        this.node = node;
+        this.nodes = nodes;
     }
 
 

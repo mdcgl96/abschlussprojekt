@@ -32,6 +32,6 @@ public class Admin {
 
     @OneToMany(mappedBy = "admin")
     @JsonManagedReference
-    private List<Maintenance> cases;
+    private List<Maintenance> maintenances;
     
 }

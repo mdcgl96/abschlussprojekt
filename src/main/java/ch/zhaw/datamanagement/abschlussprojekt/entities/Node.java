@@ -15,10 +15,14 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@EqualsAndHashCode
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
@@ -37,22 +41,20 @@ public class Node {
 
     @OneToMany(mappedBy = "node")
     @JsonManagedReference
-    private List<Maintenance> services;
+    private List<Maintenance> maintenances;
 
     @ManyToOne
     @JsonBackReference
-    private Network network;
+    private Node network;
+    // Warum network nicht im allargsconstructor?
 
-
-
-    public Node(long id, String status, List<Maintenance> services) {
+    public Node(long id, String status, List<Maintenance> maintenances) {
         this.id = id;
         this.status = status;
-        this.services = services;
+        this.maintenances = maintenances;
     }
 
     public Node() {
     }
-    
     
 }
