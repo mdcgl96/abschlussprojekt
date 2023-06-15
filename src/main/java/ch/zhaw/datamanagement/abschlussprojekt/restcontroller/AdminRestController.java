@@ -2,6 +2,7 @@ package ch.zhaw.datamanagement.abschlussprojekt.restcontroller;
 
 import ch.zhaw.datamanagement.abschlussprojekt.entities.Admin;
 import ch.zhaw.datamanagement.abschlussprojekt.repositories.AdminRepository;
+import ch.zhaw.datamanagement.abschlussprojekt.entities.dtos.SimpleAdminDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,20 +21,27 @@ public class AdminRestController {
     @Autowired
     AdminRepository repository;
 
-    @RequestMapping(value="abschlussprojekt/admin", method=RequestMethod.GET)
-    public ResponseEntity<List<Admin>> getAdmins()   {
-        List<Admin> result = this.repository.findAdmins();
+    @RequestMapping(value = "abschlussprojekt/admin", method = RequestMethod.GET)
+    public ResponseEntity<List<Admin>> getAdmins() {
+        List<Admin> result = this.repository.findAll();
         return new ResponseEntity<List<Admin>>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value="abschlussprojekt/admin/{id}", method=RequestMethod.GET)   
+    @RequestMapping(value = "abschlussprojekt/admin/{id}", method = RequestMethod.GET)
     public ResponseEntity<Admin> getEntity(@PathVariable("id") long id) {
 
         Optional<Admin> result = this.repository.findById(id);
-        if(result.isEmpty())    {
+        if (result.isEmpty()) {
             return new ResponseEntity<Admin>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Admin>(result.get(), HttpStatus.OK);
     }
-    
+
+    @RequestMapping(value = "abschlussprojekt/simpleadmin", method = RequestMethod.GET)
+    public ResponseEntity<List<SimpleAdminDTO>> getSimpleAdmins() {
+        List<SimpleAdminDTO> result = this.repository.findAll().stream().map(admin -> new SimpleAdminDTO(admin))
+                .toList();
+        return new ResponseEntity<List<SimpleAdminDTO>>(result, HttpStatus.OK);
+    }
+
 }

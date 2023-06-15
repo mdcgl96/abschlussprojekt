@@ -1,6 +1,7 @@
 package ch.zhaw.datamanagement.abschlussprojekt.restcontroller;
 
 import ch.zhaw.datamanagement.abschlussprojekt.entities.Maintenance;
+import ch.zhaw.datamanagement.abschlussprojekt.entities.dtos.SimpleMaintenanceDTO;
 import ch.zhaw.datamanagement.abschlussprojekt.repositories.MaintenanceRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,13 @@ public class MaintenanceRestController {
             return new ResponseEntity<Maintenance>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Maintenance>(result.get(), HttpStatus.OK);
+    }
+
+        @RequestMapping(value = "abschlussprojekt/simplemaintenance", method = RequestMethod.GET)
+    public ResponseEntity<List<SimpleMaintenanceDTO>> getSimpleAdmins() {
+        List<SimpleMaintenanceDTO> result = this.repository.findAll().stream().map(maintenance -> new SimpleMaintenanceDTO(maintenance))
+                .toList();
+        return new ResponseEntity<List<SimpleMaintenanceDTO>>(result, HttpStatus.OK);
     }
 
 }
