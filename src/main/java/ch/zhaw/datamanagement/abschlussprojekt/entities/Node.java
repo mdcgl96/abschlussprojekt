@@ -29,9 +29,8 @@ import lombok.Setter;
 @JsonIdentityInfo(
   generator = ObjectIdGenerators.PropertyGenerator.class, 
   property = "id")
-// abstract class -> wir werden nie eine Instanz der Klasse Node erzeugen, nur Instanzen der Kind-Klassen Network und Computer.
-// abstract verhindert dass es moeglich ist instanzen der klasse zu erzeugen und ermoeglicht auch abstrake methoden.
-public class Node {
+
+public abstract class Node {
 
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,0 +1,31 @@
+cypher - nodesnedges
+
+LOAD CSV WITH HEADERS FROM "file:///nodes_abschlussprojekt.csv" AS row
+WITH toInteger(row.id) AS adminID, row.name AS adminName 
+MERGE (ad:Admin {adminID: adminID})
+    SET ad.name = adminName
+RETURN count(ad)
+
+LOAD CSV WITH HEADERS FROM "file:///edges_abschlussprojekt.csv" AS row 
+WITH toInteger(row.lhs) AS lhsID, toInteger(row.rhs) AS rhs rhsID
+MATCH (lhsNode:Admin {adminID: lhsID})
+MATCH (rhsNode:Admin {adminID: rhsID})
+MERGE (lhsNode)-[edge:MAINTENANCE]-(rhsNode)
+Return count(edge)
+
+DS 
+
+CALL gds.graph.project('myGraphProjection',
+    'Admin',
+    {
+        MAINTENANCE:{
+            orientation: "UNDIRECTED"
+        }
+    })
+
+CALL gds.degree.stream(
+    "myGraphProjection"
+)YIELD 
+    nodeId, score
+RETURN gds.util.asNode(nodeId).name AS name, score AS degree
+ORDER BY degree DESC, name DESC 

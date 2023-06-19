@@ -38,6 +38,4 @@ public class Maintenance {
     @JsonBackReference
     private Admin admin;
 
-    // TODO: das "@JoinColumn" noch implementieren (siehe link)
-    // TODO: drop and create db
 }
